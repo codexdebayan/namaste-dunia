@@ -1,4 +1,4 @@
-name: Namaste dunia
+name: Namaste Dunia
 
 on:
   push:
@@ -7,26 +7,27 @@ on:
   pull_request:
     branches:
       - main
-  jobs:
-    build-and-test:
-      runs-on: ubuntu-latest
 
-      steps:
-        - name : Checkout code
-        uses : actions/checkout@v3
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
 
-        - name : Set up python
-        uses : actions/setup-python@v3
-        with : 
-          python-version : '3.8'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-        - name : Cache depencies
-        uses : actions/cache@v3
+      - name: Set up Python
+        uses: actions/setup-python@v3
         with:
-        path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
-        restore-keys: |
-          ${{ runner.os }}-pip-
+          python-version: '3.8'
+
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
 
       - name: Install dependencies
         run: |
