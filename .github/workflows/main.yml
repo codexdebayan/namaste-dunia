@@ -37,6 +37,7 @@ jobs:
       - name: Run tests
         run: |
           python -m pytest .\tests\appTest.py
+          pwd
 
       - name: Send notification on failure
         if: failure()
