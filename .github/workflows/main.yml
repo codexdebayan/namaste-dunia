@@ -42,5 +42,6 @@ jobs:
         if: failure()
         run: echo "Build failed! Notifying the team..."
 
-        else: success()
+      - name: Send notification on success
+        if: success()
         run: echo "Build success! Notifying the team..."
