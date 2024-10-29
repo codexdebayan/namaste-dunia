@@ -5,7 +5,7 @@ pipeline{
         stage("Build docker image"){
             steps{
                 script{
-                    docker.build('namaste-dunia','-f dockerfile .')
+                    docker.build('namaste-dunia','-f Dockerfile .')
                 }
             }
         }
