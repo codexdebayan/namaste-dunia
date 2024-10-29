@@ -1,0 +1,48 @@
+pipeline{
+    agent any
+
+    stages{
+        stage("Build docker image"){
+            steps{
+                script{
+                    docker.build('namaste-dunia','-f dockerfile .')
+                }
+            }
+        }
+
+        stage('Run pytest inside the container'){
+            steps{
+                script{
+                    docker.image('namaste-dunia').inside{
+                        sh 'python -m pytest appTest.py'
+                    }
+                }
+            }
+        }
+
+        stage('Run Application'){
+            steps{
+                script{
+                    docker.image('namaste-dunia').inside{
+                        sh 'python app.py'
+                    }
+                }
+            }
+        }
+        stage('Clean Up') { 
+
+            steps { 
+
+                script { 
+
+                    // Optionally, remove the Docker image after the pipeline completes 
+
+                    sh 'docker rmi namaste-dunia || true' 
+
+                } 
+
+            } 
+
+        } 
+    }
+}
