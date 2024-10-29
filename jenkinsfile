@@ -13,7 +13,7 @@ pipeline{
         stage('Run pytest inside the container'){
             steps{
                 script{
-                    docker.image('namaste-dunia').inside{
+                    docker.image('namaste-dunia').inside("-v /app:/app"){
                         sh 'python -m pytest appTest.py'
                     }
                 }
@@ -23,7 +23,7 @@ pipeline{
         stage('Run Application'){
             steps{
                 script{
-                    docker.image('namaste-dunia').inside{
+                    docker.image('namaste-dunia').inside("-v /app:/app"){
                         sh 'python app.py'
                     }
                 }
